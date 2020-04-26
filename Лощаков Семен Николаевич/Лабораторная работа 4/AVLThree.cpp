@@ -6,232 +6,148 @@
 4) Печать всех элементов дерева
 */
 
-#include <iostream> 
+#include <iostream>
+
 using namespace std;
- 
-class Node
-{
-public:
-    int key;
-    Node* left;
-    Node* right;
-    int height;
+
+struct AVL {
+    int key, height;
+    AVL* left;
+    AVL* right;
+    AVL(int k) { key = k; left = right = 0; height = 1; }
 };
 
-int height(Node* N)
-{
-    if (N == NULL)
-        return 0;
-    return N->height;
-}
- 
-int max(int a, int b)
-{
-    return (a > b) ? a : b;
+int height(AVL* p) {
+    if (p == NULL) return 0;
+    return p->height;
 }
 
-Node* newNode(int key)
-{
-    Node* node = new Node();
-    node->key = key;
-    node->left = NULL;
-    node->right = NULL;
-    node->height = 1;  
-    return(node);
-}
-   
-Node* rightRotate(Node* y)
-{
-    Node* x = y->left;
-    Node* T2 = x->right;
- 
-    x->right = y;
-    y->left = T2;
- 
-    y->height = max(height(y->left),
-        height(y->right)) + 1;
-    x->height = max(height(x->left),
-        height(x->right)) + 1;
-  
-    return x;
-}
- 
-Node* leftRotate(Node* x)
-{
-    Node* y = x->right;
-    Node* T2 = y->left;
- 
-    y->left = x;
-    x->right = T2;
-  
-    x->height = max(height(x->left),
-        height(x->right)) + 1;
-    y->height = max(height(y->left),
-        height(y->right)) + 1;
- 
-    return y;
-}
- 
-int getBalance(Node* N)
-{
-    if (N == NULL)
-        return 0;
-    return height(N->left) -
-        height(N->right);
+int balfac(AVL* p) {
+    return height(p->right) - height(p->left);
 }
 
-Node* insert(Node* node, int key)
-{
-    if (node == NULL)
-        return(newNode(key));
+void fixedH(AVL* p) {
+    int temp;
+    int Hleft = height(p->left);
+    int Hright = height(p->right);
+    if (Hleft > Hright) temp = Hleft + 1;
+    else temp = Hright + 1;
+    p->height = temp;
+}
 
-    if (key < node->key)
-        node->left = insert(node->left, key);
-    else if (key > node->key)
-        node->right = insert(node->right, key);
-    else  
-        return node;
+AVL* rotR(AVL* p) {
+    AVL* q = p->left;
+    p->left = q->right;
+    q->right = p;
+    fixedH(p);
+    fixedH(q);
+    return q;
+}
 
-    node->height = 1 + max(height(node->left),
-        height(node->right));
+AVL* rotL(AVL* q) {
+    AVL* p = q->right;
+    q->right = p->left;
+    p->left = q;
+    fixedH(q);
+    fixedH(p);
+    return p;
+}
 
-    int balance = getBalance(node);
- 
-    if (balance > 1 && key < node->left->key)
-        return rightRotate(node);
-  
-    if (balance < -1 && key > node->right->key)
-        return leftRotate(node);
-
-    if (balance > 1 && key > node->left->key)
+AVL* BalanceTree(AVL* p) {
+    fixedH(p);
+    if (balfac(p) == 2)
     {
-        node->left = leftRotate(node->left);
-        return rightRotate(node);
+
+        if (balfac(p->right) < 0) p->right = rotR(p->right);
+        return rotL(p);
     }
- 
-    if (balance < -1 && key < node->right->key)
+    if (balfac(p) == -2)
     {
-        node->right = rightRotate(node->right);
-        return leftRotate(node);
+        if (balfac(p->left) > 0) p->left = rotL(p->left);
+        return rotR(p);
     }
-
-    return node;
+    return p;
 }
 
-Node* minValueNode(Node* node)
-{
-    Node* current = node;
-    while (current->left != NULL)
-        current = current->left;
-    return current;
+AVL* Add(AVL* p, int k) {
+    if (!p) return new AVL(k);
+    if (k < p->key) p->left = Add(p->left, k);
+    else p->right = Add(p->right, k);
+    return BalanceTree(p);
 }
-  
-Node* deleteNode(Node* root, int key)
+
+AVL* SRCmin(AVL* p)
+{
+    return p->left ? SRCmin(p->left) : p;
+}
+
+AVL* DELmin(AVL* p)
 {
 
-    if (root == NULL) return root;
-    if (key < root->key) root->left = deleteNode(root->left, key);   
-    else if (key > root->key) root->right = deleteNode(root->right, key);
+    if (p->left == 0) return p->right;
+    p->left = DELmin(p->left);
+    return BalanceTree(p);
+}
+
+AVL* DelKey(AVL* p, int k) // удаление ключа k из дерева p
+{
+    if (!p) return 0;
+    if (k < p->key) p->left = DelKey(p->left, k);
+    else if (k > p->key) p->right = DelKey(p->right, k);
     else
     {
-        if ((root->left == NULL) || (root->right == NULL))  
-        {
-            Node* temp = root->left ?
-                root->left :
-                root->right;
-            if (temp == NULL)
-            {
-                temp = root;
-                root = NULL;
-            }
-            else 
-                *root = *temp;    
-            free(temp);
-        }
-        else
-        {
-            Node* temp = minValueNode(root->right); 
-            root->key = temp->key;  
-            root->right = deleteNode(root->right,
-                temp->key);
-        }
-    } 
-    if (root == NULL)
-        return root;
-    root->height = 1 + max(height(root->left), height(root->right));
-        
-    int balance = getBalance(root);
-   
-    if (balance > 1 && getBalance(root->left) >= 0) return rightRotate(root);
-       
-    if (balance > 1 && getBalance(root->left) < 0)
-    {
-        root->left = leftRotate(root->left);
-        return rightRotate(root);
+        AVL* q = p->left;
+        AVL* r = p->right;
+        delete p;
+        if (!r) return q;
+        AVL* min = SRCmin(r);
+        min->right = DELmin(r);
+        min->left = q;
+        return BalanceTree(min);
     }
-  
-    if (balance < -1 && getBalance(root->right) <= 0) return leftRotate(root);
-         
-    if (balance < -1 && getBalance(root->right) > 0)
-    {
-        root->right = rightRotate(root->right);
-        return leftRotate(root);
-    }
-    return root;
+    return BalanceTree(p);
 }
-  
-void preOrder(Node* root)
-{
-    if (root != NULL)
+
+void Display(AVL* p) {
+    if (p != NULL)
     {
-        cout << root->key << " ";
-        preOrder(root->left);
-        preOrder(root->right);
+        cout << p->key << " ";
+        Display(p->left);
+        Display(p->right);
     }
+
 }
- 
+
+AVL* FindForKey(int k, AVL* p) {
+    if (p == NULL || k == p->key) return p;
+    if (k < p->key) return FindForKey(k, p->left);
+    if (k > p->key) return FindForKey(k, p->right);
+}
+
 int main()
 {
     setlocale(LC_ALL, "Rus");
-    Node* root = NULL;
+    AVL* NewTree = NULL;
+    NewTree = Add(NewTree, 9);
+    NewTree = Add(NewTree, 5);
+    NewTree = Add(NewTree, 10);
+    NewTree = Add(NewTree, 0);
+    NewTree = Add(NewTree, 6);
+    NewTree = Add(NewTree, 11);
+    NewTree = Add(NewTree, -1);
+    NewTree = Add(NewTree, 1);
+    NewTree = Add(NewTree, 2);
 
-    root = insert(root, 9);
-    root = insert(root, 5);
-    root = insert(root, 10);
-    root = insert(root, 0);
-    root = insert(root, 6);
-    root = insert(root, 11);
-    root = insert(root, -1);
-    root = insert(root, 1);
-    root = insert(root, 2);
+    cout << "Исходное AVL дерево: ";
+    Display(NewTree);
+    cout << endl;
 
-    /* The constructed AVL Tree would be
-         9
-       / \
-       1 10
-       / \ \
-       0 5 11
-       / / \
-      -1 2 6
-    */
+    NewTree = DelKey(NewTree, 10);
+    cout << "AVL дерево после операции удаления: ";
+    Display(NewTree);
+    cout << endl;
 
-    cout << "Построение дерева АВЛ \n";
-    preOrder(root);
-
-    root = deleteNode(root, 10);
-
-    /* The AVL Tree after deletion of 10
-         1
-        / \
-        0 9
-        / / \
-      -1 5   11
-       / \
-       2 6
-    */
-
-    cout << "\nДерево после удаления ключа 10 \n";
-    preOrder(root);
-
-    return 0;
+    cout << "AVL дерево поиск по ключу 6: ";
+    NewTree = FindForKey(6, NewTree);
+    Display(NewTree);
 }

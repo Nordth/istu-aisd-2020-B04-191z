@@ -109,5 +109,4 @@ int main()
         //=================
         tree = rm(tree,23);
         printlist(tree);
-       cout << "Привет" << endl;
 }

@@ -26,9 +26,9 @@ m3: mov al, byte ptr [esi] ;указываем на адрес памяти по
     inc bx
 ; цикл 3
 m2: inc esi ;если равно 0
-    cmp al,0
+    cmp al,0 ;сравнение 
     jne m1
-    mov c1,bx 
+    mov c1,bx ;смещение
     lea esi,m
     mov edi,esi
 ; цикл 4

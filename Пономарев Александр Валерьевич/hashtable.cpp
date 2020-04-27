@@ -5,63 +5,61 @@
 
 using  namespace std;
 
-int hh(string str); //hash
-
-struct listHash
+struct item
 {
     int value;
-    string word;
-    listHash *next;
+    string key;
+    item *next;
 };
-struct tablehash {
-	listHash* array;
-	int size = 0; //количество записей в списке
-	int elements = 0; //сколько всего элементов в списке
+struct hashtable
+{
+    item* array;
+    int elem = 0;
+    int size = 0;
 
-    bool createdTable(int rate)
-    {
-    if(rate < 3)//если меньше 3 то таблица не создается
-    {
-        return false; //если меньше то не создаем возращаем false
-    }
-    if(array)
-    {
-        return false;
-    }
-    size = rate;
-    array = new listHash[size];
-    // tablehash::size = rate;
-	// tablehash::array = new listHash[tablehash::size];
-		return true;
-    }
 
-    //insert item listhash key,value
-    bool insert(string word,int value)
+    bool created(int buf)
     {
-        listHash* hashtab = new listHash();
-        hashtab -> word = word;
-        hashtab -> value = value;
-        return add(hashtab);
-    }
-    //добавление в самой таблице
-    bool add(listHash* table)
-    {
-        int h = hh(table -> word);
-        if (array[h].word == "")
+        if(buf <= 2) //если меньше чем 2
         {
-            array[h] = *table;
-			elements++;
-			if (elements > size / 2) {
-				return true;
-			}
-			return true;
-            
+            return false;
         }
-        
+        if(array) //если массив уже определен 
+        {
+            return false;
+        }
+        size = buf;
+        array = new item[size];
+        return true;
+    }
+
+    //created Item table
+    bool createdItem(string key, int value)
+    {
+        item* listItem = new item();
+        listItem -> value = value;
+        listItem -> key = key;
+    }
+    //создаем ячейку в таблицу с ключем и значением
+    bool add(item* listItem)
+    {
+        int h = hh(listItem -> key);
+        if (array[h].key = "")
+        {
+            array[h].key = *listItem;
+            elem++;
+            if(elem > size / 2)
+            {
+                //
+            }
+        }
     }
 };
-//created table
 
+int hh(string k)
+{
+    return 0;
+}
 int main() {
     
     return 0;

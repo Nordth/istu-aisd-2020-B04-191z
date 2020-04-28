@@ -11,126 +11,98 @@
 
 #include <iostream> 
 #include <vector>
-#include <string>
 
 using namespace std;
 
-template<typename K, typename V>
-
-class HashNode
+template<typename Key, typename Val>
+class Node
 {
 public:
-    V value;
-    K key;
-  
-    HashNode(K key, V value)
-    {
-        this->value = value;
-        this->key = key;
-    }
+    Val value;
+    Key key;
+    Node(Key key, Val value) { this->value = value; this->key = key; }
 };
 
-template<typename K, typename V>
-
-class HashMap
+template<typename Key, typename Val>
+class HTable
 {
-    HashNode<K, V>** arr;
-    int capacity;
-    int size;
-    HashNode<K, V>* dummy;
+    int capacity, SIZE;
+    Node<Key, Val>** arr;
+    Node<Key, Val>* xF;
 
 public:
-    HashMap()
+    HTable()
     {
         capacity = 5;
-        size = 0;
-        arr = new HashNode<K, V> * [capacity];
-        for (int i = 0; i < capacity; i++)
-            arr[i] = NULL;
-        dummy = new HashNode<K, V>(-1, -1);
-    }
-    int hashCode(K key)
-    {
-        return key % capacity;
+        SIZE = 0;
+        arr = new Node<Key, Val> * [capacity];
+        for (int i = 0; i < capacity; i++) arr[i] = NULL;
+        xF = new Node<Key, Val>(-1, -1);
     }
 
-    void insertNode(K key, V value)
+    int HFunc(Key key) { return key % capacity; }
+
+    void AddToTable(Key key, Val value)
     {
-        HashNode<K, V>* temp = new HashNode<K, V>(key, value);
-        int hashIndex = hashCode(key);
- 
-        while (arr[hashIndex] != NULL && arr[hashIndex]->key != key && arr[hashIndex]->key != -1 && arr[hashIndex]->key == key && size != capacity)
+        Node<Key, Val>* temp = new Node<Key, Val>(key, value);
+        int i = HFunc(key);
+
+        while (arr[i] != NULL && arr[i]->key != key && arr[i]->key != -1 && arr[i]->key == key && SIZE != capacity)
         {
-            hashIndex++;
-            hashIndex %= capacity;
+            i++;
+            i %= capacity;
         }
 
-        if (arr[hashIndex] == NULL || arr[hashIndex]->key == -1)
-            size++;
-
-        arr[hashIndex] = temp;
+        if (arr[i] == NULL || arr[i]->key == -1) SIZE++;
+        arr[i] = temp;
     }
 
-    V deleteNode(int key)
+    Val Delete(int key)
     {
-        int hashIndex = hashCode(key);
+        int i = HFunc(key);
 
-        while (arr[hashIndex] != NULL)
+        while (arr[i] != NULL)
         {
-            if (arr[hashIndex]->key == key)
+            if (arr[i]->key == key)
             {
-                HashNode<K, V>* temp = arr[hashIndex]; 
-                arr[hashIndex] = dummy;
-                size--;
+                Node<Key, Val>* temp = arr[i];
+                arr[i] = xF;
+                SIZE--;
                 return temp->value;
             }
-            hashIndex++;
-            hashIndex %= capacity;
+            i++;
+            i %= capacity;
         }
         return NULL;
     }
-    V get(int key)
-    { 
-        int hashIndex = hashCode(key);
-        int counter = 0;   
-        while (arr[hashIndex] != NULL)
-
+    Val FoundToKey(int key)
+    {
+        int i = HFunc(key);
+        int counter = 0;
+        while (arr[i] != NULL)
         {
             int counter = 0;
-            if (counter++ > capacity)   
-                return NULL;
-
-            if (arr[hashIndex]->key == key)
-                return arr[hashIndex]->value;
-
-            hashIndex++;
-            hashIndex %= capacity;
-        } 
+            if (counter++ > capacity) return NULL;
+            if (arr[i]->key == key) return arr[i]->value;
+            i++;
+            i %= capacity;
+        }
         return NULL;
     }
 
-    int maxsizeofMap()
-    {
-        return capacity;
-    }
+    int maxsizeofMap() { return capacity; }
+    int sizeofMap() { return SIZE; }
+    bool isEmpty() { return SIZE == 0; }
 
-    int sizeofMap()
-    {
-        return size;
-    }
-
-    bool isEmpty()
-    {
-        return size == 0;
-    }
-
-    void display()
+    void Display()
     {
         for (int i = 0; i < capacity; i++)
         {
             if (arr[i] != NULL && arr[i]->key != -1)
-                cout << "key = " << arr[i]->key
-                << "  value = " << arr[i]->value << endl;
+            {
+                cout << "Ключ = " << arr[i]->key << "  Значение = " << arr[i]->value << endl;
+            }
+
         }
     }
 };
@@ -140,7 +112,7 @@ int main()
 {
     setlocale(LC_ALL, "Rus");
     int num, val, key;
-    HashMap<int, int>* h = new HashMap<int, int>;
+    HTable<int, int>* h = new HTable<int, int>;
 
     while (1) {
         system("cls");
@@ -154,46 +126,36 @@ int main()
         switch (num) {
         case 1:
             cout << "Текущее количество элементов в таблице: " << h->sizeofMap() << endl;
-            cout << "Введите интересующий вас элемент : ";
-            cin >> val;
-            cout << "Введите ключ, на котором элемент должен быть вставлен : ";
-            cin >> key;
-            h->insertNode(key, val);
+            cout << "Введите интересующий вас элемент : "; cin >> val;
+            cout << "Введите ключ, на котором элемент должен быть вставлен : "; cin >> key;
+            h->AddToTable(key, val);
             break;
             system("cls");
         case 2:
-            cout << "Введите ключ элемента для поиска: ";
-            cin >> key;
-            if (h->get(key) == -1) {
+            cout << "Введите ключ элемента для поиска: "; cin >> key;
+            if (h->FoundToKey(key) == -1)
+            {
                 cout << "Элемент не найден в ключе " << key << endl;
                 continue;
             }
-            else {
-                cout << "Элемент в ключе " << key << ": ";
-                cout << h->get(key) << endl;
+            else
+            {
+                cout << "Элемент в ключе " << key << ": " << h->FoundToKey(key) << endl;
             }
             system("pause");
             break;
             system("cls");
         case 3:
-            cout << "Введите ключ удаляемого элемента: ";
-            cin >> key;
-            cout << "Значение " << h->get(key) << " в ключе " << key << " удалено!";
-            h->deleteNode(key);
+            cout << "Введите ключ удаляемого элемента: "; cin >> key;
+            cout << "Значение " << h->FoundToKey(key) << " в ключе " << key << " удалено!"; h->Delete(key);
             cout << endl;
             system("pause");
             break;
             system("cls");
         case 4:
             cout << "Элементы хеш-таблицы:" << endl;
-            if (h->isEmpty())
-            {
-                cout << "Таблица пуста" << endl;
-            }
-            else
-            {
-                h->display();
-            }
+            if (h->isEmpty()) { cout << "Таблица пуста" << endl; }
+            else { h->Display(); }
             cout << endl;
             system("pause");
             break;
@@ -204,6 +166,5 @@ int main()
             cout << "\nВведите корректный номер меню!\n";
         }
     }
-
     return 0;
 }

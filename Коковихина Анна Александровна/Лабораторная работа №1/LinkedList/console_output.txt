@@ -1,0 +1,56 @@
+capacity: 2, size: 0
+ values: 0
+test push
+capacity: 2, size: 1
+ values: 0
+capacity: 2, size: 2
+ values: 0 1
+capacity: 4, size: 3
+ values: 0 1 2
+capacity: 4, size: 4
+ values: 0 1 2 3
+capacity: 8, size: 5
+ values: 0 1 2 3 4
+capacity: 8, size: 6
+ values: 0 1 2 3 4 5
+capacity: 8, size: 7
+ values: 0 1 2 3 4 5 6
+capacity: 8, size: 8
+ values: 0 1 2 3 4 5 6 7
+capacity: 16, size: 9
+ values: 0 1 2 3 4 5 6 7 8
+test pop
+pop: 8
+capacity: 16, size: 8
+ values: 0 1 2 3 4 5 6 7
+capacity: 16, size: 9
+ values: 0 1 2 3 4 5 6 7 9
+pop: 9
+capacity: 16, size: 8
+ values: 0 1 2 3 4 5 6 7
+pop: 7
+capacity: 16, size: 7
+ values: 0 1 2 3 4 5 6
+pop: 6
+capacity: 16, size: 6
+ values: 0 1 2 3 4 5
+pop: 5
+capacity: 16, size: 5
+ values: 0 1 2 3 4
+pop: 4
+capacity: 16, size: 4
+ values: 0 1 2 3
+pop: 3
+capacity: 16, size: 3
+ values: 0 1 2
+pop: 2
+capacity: 16, size: 2
+ values: 0 1
+pop: 1
+capacity: 16, size: 1
+ values: 0
+pop: 0
+capacity: 16, size: 0
+ values: 0
+test empty pop
+Queue is empty

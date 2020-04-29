@@ -69,17 +69,17 @@ struct DataTable {
 		}
 		else
 		{
-			DataItem* fgh = hashTable + hashCode;
-			while (fgh)
+			DataItem* element = hashTable + hashCode;
+			while (element)
 			{
-				if (fgh->key == key)
+				if (element->key == key)
 				{
-					value = fgh->value;
+					value = element->value;
 					return value;
 				}
 				else
 				{
-					fgh = fgh->next;
+					element = element->next;
 				}
 			}
 		}

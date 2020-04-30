@@ -8,11 +8,20 @@ class List
 {
 public:
 	List();
+	List(const List& st)
+	{
+	this->head = 0;
+	Node* sourceNode = st.head;
+	while (sourceNode != 0)
+	{
+		dobavlenie(sourceNode->data);
+		sourceNode = sourceNode->Next;
+	}
+	}
 	~List();
 	void dobavlenie(int data);
 	int&operator[](const int index);
 	int SizeN();
-	void ochistka();
 	void dobav_po_index(int value, int index);
 	void udal_po_index(int index);
 
@@ -40,7 +49,13 @@ List::List()
 }
 List::~List()
 {
-
+	while (N != 0)
+	{
+		Node* bHead = head;
+		head = head->Next;
+		delete bHead;
+		N--;
+	}
 }
 
 void List::dobavlenie(int data)
@@ -82,17 +97,6 @@ int List::SizeN()
 	return N;
 }
 
-void List::ochistka()
-{
-	while (N != 0)
-	{
-		Node* bHead = head;
-		head = head->Next;
-		delete bHead;
-		N--;
-	}
-}
-
 void List::dobav_po_index(int data, int index)
 { 
 	Node* cHead = this -> head;
@@ -127,25 +131,24 @@ int main()
 	{
 		lst.dobavlenie(rand() % 100);
 	}
-	cout<<"Заполненный список:"<< endl;
+	cout << "Zapolnennyy spisok:" << endl;
 	for (int i = 0; i < lst.SizeN(); i++)
 	{
 		cout << lst[i]<<" ";
 	}
 	cout << endl;
-	cout<<"Добавляем число 5 в конец списка:"<<endl;
+	cout << "Dobavlyem chislo 5 v konets spiska:" << endl;
 	lst.dobavlenie(5);
-	cout<<"Число с индексом 3: "<<lst[3]<<endl;
-	cout<<"Добавляем число 77 в индекс 2:"<<endl;
+	cout << "Chislo s indeksom 3: " << lst[3] << endl;
+	cout << "Dobavlyem chislo 77 v indeks 2:" << endl;
 	lst.dobav_po_index(77, 2);
-	cout<<"Удаляем число c индексом 4:"<<endl;
+	cout << "Udalyaem chislo s indeksom 4:" << endl;
 	lst.udal_po_index(4);
-	cout<<"Список:"<< endl;
+	cout << "Spisok:" << endl;
 	for (int i = 0;  i < lst.SizeN();  i++)
 	{
 		cout << lst[i]<<" ";
 	}
-	lst.ochistka();
 	return 0;
 }
 

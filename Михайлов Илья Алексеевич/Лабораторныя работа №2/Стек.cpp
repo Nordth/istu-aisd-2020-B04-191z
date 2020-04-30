@@ -8,12 +8,20 @@ class STACK
 {
 public:
 	STACK();
+	STACK(const STACK& st)
+	{
+	stack = new int[st.N];
+	N = st.N;
+	for (int i = 0; i < N; i++)
+	{
+	stack[i] = st.stack[i];
+	}
+	}	
 	~STACK();
 	void dobavlenie(int zx);
 	int Vershina();
 	int Nsize();
 	void Vivod();
-	void Udalenie();
 private:
 	int* stack;
 	int N;
@@ -26,7 +34,7 @@ STACK::STACK()
 
 STACK::~STACK()
 {
-	
+	delete[] stack;
 }
 void STACK::dobavlenie(int zx)
 {
@@ -69,37 +77,27 @@ void STACK::Vivod()
 	cout << endl;
 }
 
-void STACK::Udalenie()
-{
-	if (N > 0)
-	{
-		delete[] stack;
-	}
-}
-
 int main()
 {	
 	setlocale(LC_ALL, "rus");
 	srand(time(NULL));
 	STACK st1;
 	int aN;
-	cout<<"Укажитеразмерстека: ";
+	cout << "Ukazhite razmer steka: ";
 	cin >> aN;
 	for (int i = 0; i < aN; i++)
 	{
 		st1.dobavlenie(rand() % 100);
 	}
-	cout<<"Заполненный стек st1:"<< endl;
+	cout << "Zapolnennyy stek st1:" << endl;
 	st1.Vivod();
-	cout<<"Добавить значение 100 на вершину."<<endl;
+	cout << "Dobavit' znachenie 100 na vershinu." << endl;
 	st1.dobavlenie(100);
 	st1.Vivod();
-	STACK st2;
-	st2 = st1;
-	cout<<"Вершина стека: "<< st1.Vershina() << endl;
+	STACK st2(st1);
+	cout << "Vershina steka: " << st1.Vershina() << endl;
 	st1.Vivod();
-	cout<<"Стек st2:"<< endl;
+	cout << "Stek st2:" << endl;
 	st2.Vivod();
-	st1.Udalenie();
 }
 

@@ -11,95 +11,128 @@ namespace UnidirectionalLoopList
         {
             UnidirectionalLoopList<string> circularList = new UnidirectionalLoopList<string>();
             int i;
-        start:
-            Console.WriteLine("============Содержание============");
-            if (circularList.Count == 0)
+            bool flag = true;
+            var res = true;
+            while (flag)
             {
-                Console.WriteLine("Пусто");
-            }
-            else
-            {
-                Console.WriteLine("{0}", string.Join(", ", circularList));
-            }
-            Console.WriteLine("==================================");
-            Console.WriteLine("Выберите действие:");
-            Console.WriteLine("1.Вставка элемента в конец.");
-            Console.WriteLine("2.Удаление элемента по значению.");
-            Console.WriteLine("3.Получение значения элемента по индексу.");
-            Console.WriteLine("4.Вставка элемента перед заданным индексом.");
-            Console.WriteLine("5.Освобождение памяти от структуры данных.");
-            Console.Write("Введите номер действия: ");
-            i = int.Parse(Console.ReadLine());
-
-            if (i == 1)
-            {
-                Console.Clear();
-                Console.Write("Введите значение: ");
-                circularList.Add(Console.ReadLine());
-                Console.WriteLine("Значение добавлено!");
-                Thread.Sleep(400);
-                Console.Clear();
-                goto start;
-            }
-            else if (i == 2)
-            {
-                Console.Clear();
-                Console.Write("Введите значение: ");
-                var res = circularList.Remove(Console.ReadLine());
-                if (res == true)
+                Console.WriteLine("============Содержание============");
+                if (circularList.Count == 0)
                 {
-                    Console.WriteLine("Значение удалено!");
+                    Console.WriteLine("Пусто");
                 }
                 else
                 {
-                    Console.WriteLine("Значение не найдено!");
+                    Console.WriteLine("{0}", string.Join(", ", circularList));
                 }
-                Thread.Sleep(400);
-                Console.Clear();
-                goto start;
-            }
-            if (i == 3)
-            {
-                Console.Clear();
-                Console.Write("Введите индекс: ");
-                int w = int.Parse(Console.ReadLine());
-                var res = circularList.Contains(w);
-                if (res == false) Console.WriteLine("Значение не найдено!");
-                Thread.Sleep(1000);
-                Console.Clear();
-                goto start;
-            }
-            if (i == 4)
-            {
-                Console.Clear();
-                Console.Write("Введите индекс: ");
-                int serach = int.Parse(Console.ReadLine());
-                Console.Write("Введите добавляемое значение: ");
-                var add = Console.ReadLine();
-                var res = circularList.AddBeforIndex(add, serach);
-                if (res == true)
+                Console.WriteLine("==================================");
+                Console.WriteLine("Выберите действие:");
+                Console.WriteLine("1.Вставка элемента в конец.");
+                Console.WriteLine("2.Удаление элемента по значению.");
+                Console.WriteLine("3.Получение значения элемента по индексу.");
+                Console.WriteLine("4.Вставка элемента перед заданным индексом.");
+                Console.WriteLine("5.Освобождение памяти от структуры данных.");
+                Console.WriteLine("6.Текст.");
+                Console.WriteLine("7.Выход.");
+                Console.Write("Введите номер действия: ");
+                i = int.Parse(Console.ReadLine());
+                switch (i)
                 {
-                    Console.WriteLine("Значение добавленно!");
-                }
-                else
-                {
-                    Console.WriteLine("Значение не найдено!");
-                }
-                Thread.Sleep(400);
-                Console.Clear();
-                goto start;
-            }
-            if (i == 5)
-            {
-                Console.Clear();
-                Console.WriteLine("Освобождение памяти от структуры данных!");
-                Thread.Sleep(1000);
-                circularList.Clear();
-                Console.Clear();
-                goto start;
-            }
+                    case 1:
+                        Console.Clear();
+                        Console.Write("Введите значение: ");
+                        circularList.Add(Console.ReadLine());
+                        Console.WriteLine("Значение добавлено!");
+                        Thread.Sleep(400);
+                        Console.Clear();
+                        break;
+                    case 2:
+                        Console.Clear();
+                        Console.Write("Введите значение: ");
+                        res = circularList.Remove(Console.ReadLine());
+                        if (res == true)
+                        {
+                            Console.WriteLine("Значение удалено!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Значение не найдено!");
+                        }
+                        Thread.Sleep(400);
+                        Console.Clear();
+                        break;
+                    case 3:
+                        Console.Clear();
+                        Console.Write("Введите индекс: ");
+                        int w = int.Parse(Console.ReadLine());
+                        res = circularList.Contains(w);
+                        if (res == false) Console.WriteLine("Значение не найдено!");
+                        Thread.Sleep(1000);
+                        Console.Clear();
+                        break;
+                    case 4:
+                        Console.Clear();
+                        Console.Write("Введите индекс: ");
+                        int serach = int.Parse(Console.ReadLine());
+                        Console.Write("Введите добавляемое значение: ");
+                        var add = Console.ReadLine();
+                        res = circularList.AddBeforIndex(add, serach);
+                        if (res == true)
+                        {
+                            Console.WriteLine("Значение добавленно!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Значение не найдено!");
+                        }
+                        Thread.Sleep(400);
+                        Console.Clear();
+                        break;
+                    case 5:
+                        Console.Clear();
+                        Console.WriteLine("Освобождение памяти от структуры данных!");
+                        Thread.Sleep(1000);
+                        circularList.Clear();
+                        Console.Clear();
+                        break;
+                    case 6:
+                        Console.Clear();
+                        Console.WriteLine("Вставка элемента в конец");
+                        Console.WriteLine("Добавляем 12312");
+                        circularList.Add("12312");
+                        Console.WriteLine("{0}", string.Join(", ", circularList));
+                        Console.WriteLine("Добавляем 5324");
+                        circularList.Add("5324");
+                        Console.WriteLine("{0}", string.Join(", ", circularList));
+                        Console.WriteLine("Вставка элемента перед заданным индексом");
+                        Console.WriteLine("Вставляем 111111 перед 2 индексом");
+                        Console.WriteLine("{0}", string.Join(", ", circularList));
+                        circularList.AddBeforIndex("111111", 2);
+                        Console.WriteLine("{0}", string.Join(", ", circularList));
+                        Console.WriteLine("Получение значения элемента по индексу");
+                        Console.WriteLine("Получаем элемент с индексом 2");
+                        circularList.Contains(2);
+                        Console.WriteLine("Удаление элемента по значению");
+                        Console.WriteLine("Удаляем 12312");
+                        Console.WriteLine("{0}", string.Join(", ", circularList));
+                        circularList.Remove("12312");
+                        Console.WriteLine("{0}", string.Join(", ", circularList));
+                        circularList.Clear();
+                        Console.WriteLine("Нажмите Enter для продолжения");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
+                    case 7:
+                        flag = false;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Неизвестное действие!");
+                        Thread.Sleep(400);
+                        Console.Clear();
+                        break;
+                }         
+            }  
         }
-
     }
 
     class UnidirectionalLoopList<T> : IEnumerable<T>
@@ -156,7 +189,7 @@ namespace UnidirectionalLoopList
                 Node<T> current = head;
                 do
                 {
-                    if (p==search)
+                    if (p == search)
                     {
                         if (current.Data.Equals(head.Data))
                         {
@@ -263,12 +296,12 @@ namespace UnidirectionalLoopList
             if (current == null) return false;
             do
             {
-                if (i==k)
+                if (i == k)
                 {
                     Console.WriteLine(current.Data);
                     return true;
                 }
-                i++;   
+                i++;
                 current = current.Next;
             }
             while (current != head);

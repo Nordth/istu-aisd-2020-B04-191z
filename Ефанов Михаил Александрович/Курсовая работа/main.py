@@ -48,7 +48,8 @@ def main():
     ws1[f"C{offers_length + 2}"].value = sum(map(lambda x: x["start_cost"], use_offers))
     for i in range(1, offers_length + 1):
         ws1[f"B{i + 1}"].value = i
-    current_money = 0
+    current_money = start_money - sum(map(lambda x: x[0], first_result))
+    print("FIRST", first_result)
     for i in range(1, invest_duration + 1):
         for j in use_offers:
             if j["day"] >= j["no_income"] + j["start_day"]:

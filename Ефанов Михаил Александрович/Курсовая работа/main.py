@@ -39,8 +39,9 @@ def main():
     offers_value = get_invest_potential(offers, invest_duration)  # рассчитываем возможную прибыль
     first_result = backpack_solver(offers_value, start_money)  # Решаем задачу о рюкзаке
     use_offers = []
-    for i in first_result:
+    for i in first_result:  # помечаем данные предложения как использованные
         use_offers.append(offers.pop(i[2] - 1))
+    # заполняем статическую информацию
     ws1[f"A{offers_length + 2}"].value = "Инвестирование"
     ws1[f"A{offers_length + 3}"].value = "Сумма:"
     ws1[f"B{offers_length + 3}"].value = start_money
@@ -51,30 +52,33 @@ def main():
     for i in range(1, invest_duration + 1):
         for j in use_offers:
             if j["day"] >= j["no_income"] + j["start_day"]:
-                current_money += j["income"]
+                current_money += j["income"]  # добавляем дневную прибыль к основной
                 j["day"] = i
             else:
                 j["day"] = i
-        offers.sort(key=lambda x: (invest_duration - x["no_income"] - 1) * x["income"] - x["start_cost"], reverse=True)
+        offers.sort(key=lambda x: (invest_duration - x["no_income"] - 1) * x["income"] - x["start_cost"],
+                    reverse=True)  # сортируем предложения по уменьшению эффективности инвестиций
         offers_value = get_invest_potential(offers, invest_duration - i)
-        # offers_value.sort(key=lambda x: x[1], reverse=True)
-        for offer in enumerate(offers_value):
-            if current_money >= offer[1][0] and offer[1][1] > 0:
-                offers[offer[0]]["start_day"] = i - 1
-                use_offers.append(offers.pop(offer[0]))
-                current_money -= offer[1][0]
-                if ws1.cell(row=offers_length + 2, column=i + 2).value:
-                    ws1.cell(row=offers_length + 2, column=i + 2).value = offer[1][0] + ws1.cell(row=offers_length + 2,
-                                                                                                 column=i + 2).value
-                else:
-                    ws1.cell(row=offers_length + 2, column=i + 2).value = offer[1][0]
+        if offers_value: # если у нас еще остались предложения
+            max_invest = max(map(lambda x: x[1], offers_value))
+            for offer in enumerate(offers_value):
+                if current_money >= offer[1][0] and offer[1][1] > 0 and offer[1][1] == max_invest: #выбираем предложение с максимальной прибылью
+                    offers[offer[0]]["start_day"] = i - 1
+                    use_offers.append(offers.pop(offer[0]))  # инвестируем в предложение
+                    current_money -= offer[1][0]
+                    if ws1.cell(row=offers_length + 2, column=i + 2).value:
+                        ws1.cell(row=offers_length + 2, column=i + 2).value = offer[1][0] + ws1.cell(row=offers_length + 2,
+                                                                                                     column=i + 2).value
+                    else:
+                        ws1.cell(row=offers_length + 2, column=i + 2).value = offer[1][0]
         print(offers_value, i, invest_duration - i, current_money)
         ws1.cell(row=1, column=i + 2).value = i
-        ws1.cell(row=offers_length + 3, column=i + 2).value = current_money
+        ws1.cell(row=offers_length + 3, column=i + 2).value = current_money  # записываем сумму на текущий день
         for offer in use_offers:
             if offer["day"] > offer["no_income"] + offer["start_day"]:
-                ws1.cell(row=offer["index"] + 1, column=i + 2).value = offer["income"]
+                ws1.cell(row=offer["index"] + 1, column=i + 2).value = offer["income"]  # записываем дневную прибыть
             else:
+                # пока прибыль не началась, помечаем желтым цветом
                 ws1.cell(row=offer["index"] + 1, column=i + 2).fill = PatternFill(start_color="FFFFFF00",
                                                                                   fill_type='solid')
     print(current_money)

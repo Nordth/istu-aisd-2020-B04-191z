@@ -1,11 +1,3 @@
-/******************************************************************************
-
-                              Online C++ Compiler.
-               Code, Compile, Run and Debug C++ program online.
-Write your code in this editor and press "Run" button to compile and execute it.
-
-*******************************************************************************/
-
 
 #include <iostream>
 using namespace std;
@@ -126,13 +118,15 @@ int main()
     
 
     cout <<endl<< "Output firsts element from first queue and queue copy:"<<endl;
-    cout << queue3.front();
     cout << queue1.front();
+    cout << queue3.front();
+    
     cout <<endl<< "Delete first element from first queue:"<<endl;
     queue1.pop();
     cout <<endl<< "Output firsts element from first queue and queue copy:"<<endl;
+    cout << queue1.front(); 
     cout << queue3.front();
-    cout << queue1.front();    
     
     return 0;
 }
+

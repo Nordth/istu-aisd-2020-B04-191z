@@ -1,3 +1,11 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
 
 #include <iostream>
 using namespace std;
@@ -10,7 +18,6 @@ private:
     int lastElementIndex = -1;
     
     int *buffer = new int[SIZE];
-    int *temporaryBuffer = new int[SIZE];
     
     int dynSize = SIZE;
 public:
@@ -22,15 +29,24 @@ public:
         }
     }
     ~Queue() { 
-        delete[] this->buffer; 
+        delete[] this->buffer;
     }
-    Queue(const Queue &queue) :
-        firstElementIndex(queue.firstElementIndex), lastElementIndex(queue.lastElementIndex), dynSize(queue.dynSize), buffer(queue.buffer), temporaryBuffer(queue.temporaryBuffer)
+    Queue(const Queue & queue) :
+        firstElementIndex(queue.firstElementIndex), lastElementIndex(queue.lastElementIndex), dynSize(queue.dynSize), buffer(queue.buffer)
     {
+        int i;
+        buffer = new int [queue.dynSize];
+        firstElementIndex = queue.firstElementIndex;
+        lastElementIndex = queue.lastElementIndex;
+        for (i=0;i<queue.dynSize;i++){
+            buffer[i] = queue.buffer[i];
+        }
+        dynSize = queue.dynSize;
         cout << "Object copyring success"<<endl;
     }
     int push(int param){
         int i;int j;
+        
         if (this->firstElementIndex != 0){
             this->firstElementIndex = 0;
         }
@@ -38,11 +54,10 @@ public:
         this->lastElementIndex++;
         
         if (this->lastElementIndex == this->dynSize){
-            
-            delete [] this->temporaryBuffer;
-            this->temporaryBuffer = new int[this->dynSize];
+            int *temporaryBuffer;
+            temporaryBuffer = new int[this->dynSize];
             for (i=0;i<dynSize;i++){
-                this->temporaryBuffer[i] = this->buffer[i];
+                temporaryBuffer[i] = this->buffer[i];
             }
             
             delete [] this->buffer;
@@ -51,9 +66,9 @@ public:
             
             this->buffer = new int[this->dynSize];
             for (j=0;j<i;j++){
-                this->buffer[j] = this->temporaryBuffer[j];
+                this->buffer[j] = temporaryBuffer[j];
             }
-
+            delete [] temporaryBuffer;
             cout << "Queue overflow: queue size doubled"<<endl;
             this->buffer[this->lastElementIndex] = param;
             
@@ -69,26 +84,30 @@ public:
         }
     }
     int pop(){
+        
         if (this->firstElementIndex == 0){
             int i;
-            delete [] this->temporaryBuffer;
-            this->temporaryBuffer = new int[this->lastElementIndex+1];  
+            int *temporaryBuffer;
+            temporaryBuffer = new int[this->lastElementIndex+1];  
             for (i=1;i<=this->lastElementIndex;i++){
-                this->temporaryBuffer[i-1] = this->buffer[i];
+                temporaryBuffer[i-1] = this->buffer[i];
             }
             
             delete [] this->buffer;
             this->buffer = new int[this->dynSize];
             for (i=0;i<lastElementIndex;i++){
-                this->buffer[i] = this->temporaryBuffer[i];
-            }            
-        }        
+                this->buffer[i] = temporaryBuffer[i];
+            }
+            delete [] temporaryBuffer;
+        }
+        
     }
 };
 
 
 int main()
 {
+    cout << "Adding elelments in two small queues:"<<endl;
     Queue queue1;Queue queue2;
     queue1.push(7);queue2.push(8);
     queue1.push(9);queue2.push(10);
@@ -96,13 +115,24 @@ int main()
     queue1.push(13);queue2.push(14);
     queue1.push(15);queue2.push(16);
 
-	Queue queue3(queue1);
-	
+    cout <<endl<< "Output first element from queue:"<<endl;
     cout << queue1.front();
-    
+    cout <<endl<< "Delete first element from queue:"<<endl;    
     queue1.pop();
-    
+    cout <<endl<< "Output first element from queue:"<<endl;
     cout << queue1.front();
+    cout <<endl<< "Copyring queue to new queue:"<<endl;
+    Queue queue3(queue1);
+    
 
+    cout <<endl<< "Output firsts element from first queue and queue copy:"<<endl;
+    cout << queue3.front();
+    cout << queue1.front();
+    cout <<endl<< "Delete first element from first queue:"<<endl;
+    queue1.pop();
+    cout <<endl<< "Output firsts element from first queue and queue copy:"<<endl;
+    cout << queue3.front();
+    cout << queue1.front();    
+    
     return 0;
 }

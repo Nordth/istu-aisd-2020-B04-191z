@@ -217,16 +217,16 @@ int main() {
     for (int i : a)
         L.addTail(i);
 
-    cout << "Òåêóùèé ëèñò:" << endl;
+    cout << "Ğ¢ĞµĞºÑƒÑ‰Ğ¸Ğ¹ Ğ»Ğ¸ÑÑ‚:" << endl;
     L.print();
     L.insertByPosition(2, 299);
-    cout << "Ëèñò ïîñëå âñòàâêè 299 ïåğåä 2 ıëåìåíòîì:" << endl;
+    cout << "Ğ›Ğ¸ÑÑ‚ Ğ¿Ğ¾ÑĞ»Ğµ Ğ²ÑÑ‚Ğ°Ğ²ĞºĞ¸ 299 Ğ¿ĞµÑ€ĞµĞ´ 2 ÑĞ»ĞµĞ¼ĞµĞ½Ñ‚Ğ¾Ğ¼:" << endl;
     L.print();
-    cout << "Âòîğîé ıëåìåíò ñïèñêà:" << L.printByPosition(2) << endl;
-    cout << "Òğåòèé ıëåìåíò ñïèñêà:" << L.printByPosition(3) << endl;
+    cout << "Ğ’Ñ‚Ğ¾Ñ€Ğ¾Ğ¹ ÑĞ»ĞµĞ¼ĞµĞ½Ñ‚ ÑĞ¿Ğ¸ÑĞºĞ°:" << L.printByPosition(2) << endl;
+    cout << "Ğ¢Ñ€ĞµÑ‚Ğ¸Ğ¹ ÑĞ»ĞµĞ¼ĞµĞ½Ñ‚ ÑĞ¿Ğ¸ÑĞºĞ°:" << L.printByPosition(3) << endl;
     cout << L.delByValue(6) << endl;
     cout << L.delByValue(7) << endl;
-    cout << "Ëèñò ïîñëå óäàëåíèÿ çíà÷åíèÿ 6 è 7" << endl;
+    cout << "Ğ›Ğ¸ÑÑ‚ Ğ¿Ğ¾ÑĞ»Ğµ ÑƒĞ´Ğ°Ğ»ĞµĞ½Ğ¸Ñ Ğ·Ğ½Ğ°Ñ‡ĞµĞ½Ğ¸Ñ 6 Ğ¸ 7" << endl;
     cout << L.delByValue(100) << endl;
     L.print();
     L.delAll();

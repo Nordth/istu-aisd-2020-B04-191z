@@ -1,11 +1,12 @@
-#include<iostream>
-#include<ctime>
+#include <iostream>
+#include <ctime>
 #include <stdlib.h>
-#include<time.h>
+#include <time.h>
 
 using namespace std;
 
-class STACK {
+class STACK
+{
 public:
     STACK();
 
@@ -23,43 +24,49 @@ public:
 
 private:
     int *stack;
-    int stack_size;
+    int stackSize;
     int N;
 };
 
-STACK::STACK(const STACK &origStack) {
+STACK::STACK(const STACK &origStack)
+{
     stack = new int[origStack.N];
-    stack_size = origStack.stack_size;
+    stackSize = origStack.stackSize;
     N = origStack.N;
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; i++)
+    {
         stack[i] = origStack.stack[i];
     }
 }
 
-STACK::~STACK() {
+STACK::~STACK()
+{
     delete[] stack;
 }
 
-void STACK::push(int value) {
-    int *tmp;
-    tmp = stack;
-
+void STACK::push(int value)
+{
     N++;
-
-    if (N >= stack_size) {
+    if (N > stackSize)
+    {
+        int *tmp;
+        tmp = stack;
         stack = new int[N * 2];
-        stack_size = stack_size * 2;
-    }
-    for (int i = 0; i < N - 1; i++) {
-        stack[i] = tmp[i];
+        stackSize = stackSize * 2;
+        for (int i = 0; i < N - 1; i++)
+        {
+            stack[i] = tmp[i];
+        }
+        delete[] tmp;
     }
     stack[N - 1] = value;
-    delete[] tmp;
 }
 
-pair<bool, int> STACK::getElement() {
+pair<bool, int> STACK::getElement()
+{
     pair<bool, int> a = {};
-    if (N == 0) {
+    if (N == 0)
+    {
         a = {false, -1};
         return a;
     }
@@ -68,29 +75,34 @@ pair<bool, int> STACK::getElement() {
     return a;
 }
 
-void STACK::print() {
-    if (N == 0) {
+void STACK::print()
+{
+    if (N == 0)
+    {
         cout << "EMPTY STACK" << endl;
         return;
     }
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; i++)
+    {
         cout << "element " << i << ": = " << stack[i] << endl;
     }
     cout << endl;
 }
 
-int STACK::getStackSize() {
-    return stack_size;
+int STACK::getStackSize()
+{
+    return stackSize;
 }
 
-STACK::STACK() {
+STACK::STACK()
+{
     N = 0;
-    stack = {};
-    stack_size = 1;
+    stackSize = 1;
+    stack = new int[stackSize];
 }
 
-
-int main() {
+int main()
+{
     setlocale(LC_ALL, "Russian");
     srand(time(NULL));
     STACK *stack1 = new STACK;
@@ -148,4 +160,3 @@ int main() {
     delete stack2;
     return 0;
 }
-

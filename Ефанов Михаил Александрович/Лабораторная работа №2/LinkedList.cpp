@@ -2,17 +2,18 @@
 
 using namespace std;
 
-struct Node {
+struct Node
+{
     int data;
     Node *next, *prev;
 };
 
-class List {
+class List
+{
     Node *Head, *Tail;
     int Count;
 
 public:
-
     List();
 
     ~List();
@@ -32,19 +33,25 @@ public:
     void addHead(int n);
 
     void insertByPosition(int pos, int value);
+
+    int getCount();
+
+    Node getHead();
 };
 
-List::List() {
+List::List()
+{
     Head = Tail = NULL;
     Count = 0;
 }
 
-
-List::~List() {
+List::~List()
+{
     delAll();
 }
 
-void List::addTail(int n) {
+void List::addTail(int n)
+{
     Node *temp = new Node;
     temp->next = 0;
     temp->data = n;
@@ -60,7 +67,18 @@ void List::addTail(int n) {
     Count++;
 }
 
-void List::addHead(int n) {
+Node List::getHead()
+{
+    return *Head;
+}
+
+int List::getCount()
+{
+    return Count;
+}
+
+void List::addHead(int n)
+{
     Node *temp = new Node;
 
     temp->prev = 0;
@@ -77,18 +95,23 @@ void List::addHead(int n) {
     Count++;
 }
 
-void List::insertByPosition(int pos, int value) {
-    if (pos == Count + 1) {
+void List::insertByPosition(int pos, int value)
+{
+    if (pos == Count + 1)
+    {
         addTail(value);
         return;
-    } else if (pos == 1) {
+    }
+    else if (pos == 1)
+    {
         addHead(value);
         return;
     }
     int i = 1;
     Node *Ins = Head;
 
-    while (i < pos) {
+    while (i < pos)
+    {
         Ins = Ins->next;
         i++;
     }
@@ -108,12 +131,15 @@ void List::insertByPosition(int pos, int value) {
     Count++;
 }
 
-void List::delByIndex(int pos) {
-    if (pos == 0) {
+void List::delByIndex(int pos)
+{
+    if (pos == 0)
+    {
         cout << "Input position: ";
         cin >> pos;
     }
-    if (pos < 1 || pos > Count) {
+    if (pos < 1 || pos > Count)
+    {
         cout << "Incorrect position !!!\n";
         return;
     }
@@ -122,7 +148,8 @@ void List::delByIndex(int pos) {
 
     Node *Del = Head;
 
-    while (i < pos) {
+    while (i < pos)
+    {
         Del = Del->next;
         i++;
     }
@@ -144,14 +171,17 @@ void List::delByIndex(int pos) {
     Count--;
 }
 
-bool List::delByValue(int value) {
+bool List::delByValue(int value)
+{
 
     Node *Del = Head;
     int i = 1;
-    while (Del->data != value) {
+    while (Del->data != value)
+    {
         Del = Del->next;
         i++;
-        if (Del->next == 0) {
+        if (Del->next == 0)
+        {
             return false;
         }
     }
@@ -175,26 +205,30 @@ bool List::delByValue(int value) {
     return true;
 }
 
-int List::printByPosition(int pos) {
+int List::printByPosition(int pos)
+{
 
     Node *temp;
 
     temp = Head;
     int i = 1;
 
-    while (i < pos) {
+    while (i < pos)
+    {
         temp = temp->next;
         i++;
     }
     return temp->data;
-
 }
 
-void List::print() {
-    if (Count != 0) {
+void List::print()
+{
+    if (Count != 0)
+    {
         Node *temp = Head;
         cout << "( ";
-        while (temp->next != 0) {
+        while (temp->next != 0)
+        {
             cout << temp->data << ", ";
             temp = temp->next;
         }
@@ -202,34 +236,87 @@ void List::print() {
     }
 }
 
-void List::delAll() {
+void List::delAll()
+{
     while (Count != 0)
         delByIndex(1);
 }
 
-int main() {
+void splitList(List &splittedList, List &a, List &b)
+{
+    if (a.getCount() == 0 && b.getCount() == 0)
+    {
+        return;
+    }
+    else if (a.getCount() == 0)
+    {
+        splittedList = b;
+    }
+    else if (b.getCount() == 0)
+    {
+        splittedList = a;
+    }
+
+    Node curA = a.getHead();
+    Node curB = b.getHead();
+    splittedList.addTail(curA.data);
+    splittedList.addTail(curB.data);
+    while (curA.next != 0 && curB.next != 0)
+    {
+        curA = *curA.next;
+        curB = *curB.next;
+        splittedList.addTail(curA.data);
+        splittedList.addTail(curB.data);
+    }
+
+    while (curB.next != 0)
+    {
+        curB = *curB.next;
+        splittedList.addTail(curB.data);
+    };
+
+    while (curA.next != 0)
+    {
+        curA = *curA.next;
+        splittedList.addTail(curA.data);
+    };
+};
+
+int main()
+{
     setlocale(LC_ALL, "Russian");
-    List L;
+    List A, B, splittedList;
 
     const int n = 10;
     int a[n] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int b[7] = {90, 80, 70, 60, 50, 40, 30};
 
     for (int i : a)
-        L.addTail(i);
+        A.addTail(i);
+
+    for (int i : b)
+        B.addTail(i);
 
     cout << "Текущий лист:" << endl;
-    L.print();
-    L.insertByPosition(2, 299);
+    A.print();
+    A.insertByPosition(2, 299);
     cout << "Лист после вставки 299 перед 2 элементом:" << endl;
-    L.print();
-    cout << "Второй элемент списка:" << L.printByPosition(2) << endl;
-    cout << "Третий элемент списка:" << L.printByPosition(3) << endl;
-    cout << L.delByValue(6) << endl;
-    cout << L.delByValue(7) << endl;
+    A.print();
+    cout << "Второй элемент списка:" << A.printByPosition(2) << endl;
+    cout << "Третий элемент списка:" << A.printByPosition(3) << endl;
+    cout << A.delByValue(6) << endl;
+    cout << A.delByValue(7) << endl;
     cout << "Лист после удаления значения 6 и 7" << endl;
-    cout << L.delByValue(100) << endl;
-    L.print();
-    L.delAll();
-    L.print();
+    cout << A.delByValue(100) << endl;
+    A.print();
+
+    cout << "Список А: " << endl;
+    A.print();
+    cout << "Список B: " << endl;
+    B.print();
+    cout << "Объединенный список А и B: " << endl;
+    //splitList(A, B);
+    splitList(splittedList, A, B);
+    splittedList.print();
     return 0;
 }

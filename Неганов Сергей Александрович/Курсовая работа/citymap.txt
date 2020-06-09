@@ -1,0 +1,9 @@
+cities(Possible separator: < >):
+A B C D E F
+map(Possible separator: < >):
+0 10 17 9 0 0
+10 0 8 15 0 0
+17 8 0 10 7 0
+9 15 10 0 0 0
+0 0 7 0 0 8
+0 0 0 0 8 0

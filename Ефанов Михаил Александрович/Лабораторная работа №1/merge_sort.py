@@ -31,7 +31,12 @@ def merge_sort(arr):
         return merge(left, right)
 
 
-array = [78, 41, 4, 27, 3, 27, 8, 39, 19, 34, 6, 41, 13, 52, 16]
+array = []
+arr_length = int(input("Введите длину массива: "))
+
+for i in range(arr_length):
+    temp = input(f"Введите {i + 1} элемент: ")
+    array.append(int(temp))
 
 print("Исходный массив:", array)
 print("Отсортированный массив:", merge_sort(array))

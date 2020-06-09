@@ -1,4 +1,9 @@
-arr = [78, 41, 4, 27, 3, 27, 8, 39, 19, 34, 6, 41, 13, 52, 16]
+arr = []
+arr_length = int(input("Введите длину массива: "))
+
+for i in range(arr_length):
+    temp = input(f"Введите {i + 1} элемент: ")
+    arr.append(int(temp))
 
 print("Исходный массив:", arr)
 

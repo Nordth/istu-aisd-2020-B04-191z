@@ -242,7 +242,7 @@ void List::delAll()
         delByIndex(1);
 }
 
-void splitList(List &splittedList, List &a, List &b)
+void splitList(List &a, List &b, List &splittedList)
 {
     if (a.getCount() == 0 && b.getCount() == 0)
     {
@@ -316,7 +316,7 @@ int main()
     B.print();
     cout << "Объединенный список А и B: " << endl;
     //splitList(A, B);
-    splitList(splittedList, A, B);
+    splitList(A, B, splittedList);
     splittedList.print();
     return 0;
 }

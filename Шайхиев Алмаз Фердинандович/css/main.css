@@ -1,0 +1,35 @@
+
+table{
+   font-size: 20px;
+   border-collapse: collapse;   
+}
+table td{
+   width: 40px;
+   height: 40px;
+   border: 1px solid black; 
+}
+.numbers{
+    background-color: #3c3cff;
+}
+.result{
+    background-color: #6767fb;
+}
+.invest{
+    background-color: #9393f5;
+}
+.data{
+    background-color: #e8e8ff;
+}
+.no_value_time{
+    background-color: #fff17c;
+}
+.table{
+    margin: 40px;
+}
+.add_offer{
+    display: flex;
+    
+}
+.show_offers_table{
+    margin-left: 60px;
+}

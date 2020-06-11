@@ -33,6 +33,10 @@ def mergeSort(alist):
             k=k+1
     print("Слияние эллементов массива: ",alist)
 
-alist = [54,26,93,17,77,31,44,55,20]
+N = int(input("Введите кол-во эллементов массива:"));
+alist =[]
+for i in range (N):
+    new_element = int(input())
+    alist.append(new_element)
 mergeSort(alist)
 print(alist)

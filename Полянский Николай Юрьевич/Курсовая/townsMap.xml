@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Towns>
+  <Town id="0">
+    <Name>Москва</Name>
+    <Point>131;38,37</Point>
+  </Town>
+  <Town id="1">
+    <Name>Уфа</Name>
+    <Point>110;99,37</Point>
+  </Town>
+  <Town id="2">
+    <Name>Калининград</Name>
+    <Point>107;174,37</Point>
+  </Town>
+  <Town id="3">
+    <Name>Ижевск</Name>
+    <Point>280;310,37</Point>
+  </Town>
+  <Town id="4">
+    <Name>Саратов</Name>
+    <Point>137;313,37</Point>
+  </Town>
+  <Town id="5">
+    <Name>Киров</Name>
+    <Point>186;249,37</Point>
+  </Town>
+  <Town id="6">
+    <Name>Село №1</Name>
+    <Point>234;377,37</Point>
+  </Town>
+  <Town id="7">
+    <Name>Иркутск</Name>
+    <Point>559;136,37</Point>
+  </Town>
+  <Town id="8">
+    <Name>Аян</Name>
+    <Point>691;185,37</Point>
+  </Town>
+  <Town id="9">
+    <Name>Чита</Name>
+    <Point>652;282,37</Point>
+  </Town>
+  <Town id="10">
+    <Name>Братск</Name>
+    <Point>538;245,37</Point>
+  </Town>
+  <Town id="11">
+    <Name>Абакан</Name>
+    <Point>501;314,37</Point>
+  </Town>
+  <Town id="12">
+    <Name>Бийск</Name>
+    <Point>438;364,37</Point>
+  </Town>
+</Towns>

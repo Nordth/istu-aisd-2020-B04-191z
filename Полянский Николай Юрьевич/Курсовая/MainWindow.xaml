@@ -1,0 +1,35 @@
+﻿<Window x:Class="Курсовая.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Курсовая"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Name="myGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Загрузить" Click="Upload_Map" Margin="5"/>
+            <Button Content="Выгрузить" Click="Unload_Map" Margin="5"/>
+            
+            <TextBlock Text="Город: " VerticalAlignment="Center"/>
+            <TextBox Text="" Name="newTown" Width="100" VerticalAlignment="Center"/>
+
+            <CheckBox  VerticalAlignment="Center" Name="putRoad" Click="putRoad_Click" Margin="10, 0, 0, 0"/>
+            <TextBlock Text="Прокладывать маршрут" Name="checkText" Width="125" VerticalAlignment="Center" Margin="5"/>
+
+            <TextBlock Text="Последнее действие: " VerticalAlignment="Center" />
+            <TextBlock Text="none" Name="lastAction" Width="150" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <Canvas Grid.Row="1" Name="MyCanvas" MouseLeftButtonDown="MyCanvas_MouseLeftButtonDown" Visibility="Visible">
+            <Canvas.Background>
+                <SolidColorBrush Color="Blue" Opacity="0"/>
+            </Canvas.Background>
+        </Canvas>
+    </Grid>
+</Window>

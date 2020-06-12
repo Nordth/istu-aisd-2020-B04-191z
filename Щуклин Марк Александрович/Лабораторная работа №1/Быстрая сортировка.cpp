@@ -1,19 +1,19 @@
 ﻿#include <iostream>
+#include <vector>
 
-long long int arr[100005];
 
-int partition(int l, int r)
+int partition(int l, int r, std::vector<int>& elements)
 {
-	int v = arr[(l + r) / 2];
+	int v = elements[(l + r) / 2];
 	int i = l;
 	int j = r;
 	while (i <= j)
 	{
-		while (arr[i] < v)
+		while (elements[i] < v)
 		{
 			i = i + 1;
 		}
-		while (arr[j] > v)
+		while (elements[j] > v)
 		{
 			j = j - 1;
 		}
@@ -21,20 +21,20 @@ int partition(int l, int r)
 		{
 			break;
 		}
-		std::swap(arr[i++], arr[j--]);
+		std::swap(elements[i++], elements[j--]);
 	}
 	return j;
 }
 
-void QuickSort(int begin, int end)
+void QuickSort(int begin, int end, std::vector<int>& elements)
 {
 	if (begin >= end)
 	{
 		return;
 	}
-	int pos = partition(begin, end);
-	QuickSort(begin, pos);
-	QuickSort(pos + 1, end);
+	int pos = partition(begin, end, elements);
+	QuickSort(begin, pos, elements);
+	QuickSort(pos + 1, end, elements);
 }
 
 
@@ -44,16 +44,20 @@ int main()
 	int n;
 	std::cin >> n;
 	std::cout << "Elements:" << std::endl;
+	std::vector<int> elements;
 	for (int i = 0; i < n; i++)
 	{
-		std::cin >> arr[i];
+		int element;
+		std::cin >> element;
+		elements.push_back(element);
 	}
-	QuickSort(0, n - 1);
+	QuickSort(0, n - 1, elements);
 	std::cout << "Result:" << std::endl;
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < n - 1; i++)
 	{
-		std::cout << arr[i] << ' ';
+		std::cout << elements[i] << ' ';
 	}
+	std::cout << elements[n - 1];
 	//system("PAUSE");
 	return 0;
 }

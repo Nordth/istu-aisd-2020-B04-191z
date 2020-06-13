@@ -9,29 +9,46 @@ namespace Структуры_данных
         static void Main(string[] args)
         {
             DoublyLinkedList<string> linkedList = new DoublyLinkedList<string>();
+
+            Console.WriteLine("Двухсвязный список");
+            Console.WriteLine("Отдельно введите 4 элемента.");
+
+            linkedList.Add(Console.ReadLine());
+            linkedList.Add(Console.ReadLine());
+            linkedList.Add(Console.ReadLine());
+            linkedList.Add(Console.ReadLine());
+
+            Console.WriteLine("\nСписок:");
+
+            linkedList.Print();
+
+            Console.WriteLine("\nВведите новый элемент перед третьим элементом.");
+            linkedList.AddBefore(Console.ReadLine(), 2);
+
+            Console.WriteLine("\nСписок:\n");
+
+            linkedList.Print();
+
+            Console.WriteLine("\nДобавленный элемент по индексу [3-1] - " + linkedList.GetElement(2).ToString());
+
+            Console.WriteLine("\nУдалите элемент по наименованию.");
+            linkedList.Remove(Console.ReadLine());
+
+            Console.WriteLine("\nСписок:");
+
+            linkedList.Print();
+
+            Console.Write("\nПоиск расстояния от индекса: ");
+            int indexStart = Convert.ToInt32(Console.ReadLine());
             
-            linkedList.Add("Employee #1");
-            linkedList.Add("Employee #2");
-            linkedList.Add("Employee #3");
-            linkedList.Add("Employee #4");
+            Console.Write("До индекса: ");
+            int indexEnd = Convert.ToInt32(Console.ReadLine());
 
-            linkedList.Print();
-
-            Console.WriteLine("Добавление элемента Employee #2.5 с индексом [2 - 1]");
-            linkedList.AddBefore("Employee #2.5", 2);
-
-            linkedList.Print();
-
-            Console.WriteLine("Поиск по индексу " + linkedList.GetElement(2).ToString());
-
-            Console.WriteLine("Удаление элемента Employee #2.5");
-            linkedList.Remove("Employee #2.5");
-
-            linkedList.Print();
+            Console.WriteLine($"Расстояние от индекса {indexStart} до {indexEnd} равно {linkedList.GetRange(indexStart, indexEnd)}");
 
             long totalMemory = GC.GetTotalMemory(false);
 
-            Console.WriteLine($"Занято памяти в куче до сборки мусора: {totalMemory}");
+            Console.WriteLine($"\nЗанято памяти в куче до сборки мусора: {totalMemory}");
 
             Console.WriteLine("Очистка списка.");
 
@@ -52,25 +69,26 @@ namespace Структуры_данных
 
             try
             {
+                Console.WriteLine("\nСтэк.");
                 // добавляем четыре элемента
-                Console.WriteLine("Добавление элементов Kate, Sam, Alice, Tom.");
-                stackOne.Push("Kate");
-                stackOne.Push("Sam");
-                stackOne.Push("Alice");
-                stackOne.Push("Tom");
+                Console.WriteLine("\nОтдельно добавьте 4 элемента.");
+                stackOne.Push(Console.ReadLine());
+                stackOne.Push(Console.ReadLine());
+                stackOne.Push(Console.ReadLine());
+                stackOne.Push(Console.ReadLine());
 
+                Console.WriteLine("\nИзвлечение верхнего элемента.");
                 // извлекаем один элемент
                 var head = stackOne.Pop();
 
-                Console.WriteLine("Извлечение элемента Tom.");
-                Console.WriteLine(head);    // Tom
+                Console.WriteLine($"Извлеченный элемент - {head}");
             }
             catch (InvalidOperationException ex)
             {
                 Console.WriteLine(ex.Message);
             }
 
-            Console.WriteLine($"Занято памяти в куче до клонирования структуры: {totalMemory}");
+            Console.WriteLine($"\nЗанято памяти в куче до клонирования структуры: {totalMemory}");
 
             Console.WriteLine("Клонирование  структуры.");
 

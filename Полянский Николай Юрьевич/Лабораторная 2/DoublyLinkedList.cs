@@ -105,6 +105,29 @@ namespace Структуры_данных
             return element.Data;
         }
 
+        public int GetRange(int indexFindOne, int indexFindTwo)
+        {
+            if (head != null)
+            {
+                DoublyNode<T> current = GetObject(indexFindOne);
+
+                int index = indexFindOne;
+
+                while (current.Next != null && index != indexFindTwo)
+                {
+                    current = current.Next;
+                    index++;
+                }
+
+                return index - 1;
+            }
+            else
+            {
+                Console.WriteLine("Список пуст.");
+                return 0;
+            }
+        }
+
         public bool Remove(T data)
         {
             DoublyNode<T> current = head;

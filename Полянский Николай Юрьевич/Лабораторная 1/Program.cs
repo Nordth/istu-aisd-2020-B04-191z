@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Сортировка
@@ -9,59 +10,73 @@ namespace Сортировка
         {
             Console.WriteLine("Пузырьковая сортировка");
 
-            int[] A = new int[] { 175, 190, 174, 199, 180, 179, 181, 182, 189, 171 };
+            List<int> queue = new List<int>();
 
-            Console.Write("Строй до сортировки: ");
-            printArray(A);
+            Console.WriteLine("Отдельно введите 10 элементов");
 
-            insert_sort(A);
+            for (int i = 0; i < 10; i++)
+            {
+                queue.Add(Convert.ToInt32(Console.ReadLine()));
+            }
+
+            Console.Write("Очередь до сортировки: ");
+            printArray(queue);
+
+            insert_sort(queue);
 
             Console.Write("Строй после сортировки: ");
-            printArray(A);
+            printArray(queue);
 
             Console.WriteLine("\nСортировка слиянием");
 
-            int[] D = new int[] { 21, 6, 7, 2, 8, 25, 29, 11, 15, 16, 19, 22, 23, 12 };
+            List<int> secondQueue = new List<int>();
+
+            Console.WriteLine("Отдельно введите 10 элементов");
+
+            for (int i = 0; i < 10; i++)
+            {
+                secondQueue.Add(Convert.ToInt32(Console.ReadLine()));
+            }
 
             Console.Write("Очередь до сортировки: ");
-            printArray(D);
+            printArray(secondQueue);
 
-            int[] newD = merge_sort(D);
+            int[] secondQueueArray = merge_sort(secondQueue.ToArray());
 
             Console.Write("Очередь после сортировки: ");
-            printArray(newD);
+            printArray(secondQueueArray.ToList());
         }
 
-        public static void printArray(int[] arr)
+        public static void printArray(List<int> queue)
         {
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < queue.Count; i++)
             {
-                if (i < arr.Length - 1)
+                if (i < queue.Count - 1)
                 {
-                    Console.Write(arr[i] + " ");
+                    Console.Write(queue[i] + " ");
                 }
                 else
                 {
-                    Console.WriteLine(arr[i]);
+                    Console.WriteLine(queue[i]);
                 }
             }
         }
 
-        public static void insert_sort(int[] arr)
+        public static void insert_sort(List<int> queue)
         {
             // проход k равен индексу начала неотсортированной части
-            for (int k = 1; k < arr.Length; k++)
+            for (int k = 1; k < queue.Count; k++)
             {
-                int val = arr[k]; // первый элемент сравниваемый по k
+                int val = queue[k]; // первый элемент сравниваемый по k
                 int j = k - 1; // первый элемент отсортированной части
 
-                while (j >= 0 && val < arr[j]) // проверяем элементы отсортированной части
+                while (j >= 0 && val < queue[j]) // проверяем элементы отсортированной части
                 {
-                    arr[j + 1] = arr[j]; // правый больший = левый эл. отсортированной части
+                    queue[j + 1] = queue[j]; // правый больший = левый эл. отсортированной части
                     j--; // двигаемся влево по отсортированной части
                 }
                 // после выхода из while j всегда меньше на 1
-                arr[j + 1] = val; // достигли нужного места
+                queue[j + 1] = val; // достигли нужного места
             }
         }
 

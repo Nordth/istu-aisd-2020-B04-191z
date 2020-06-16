@@ -1,0 +1,15 @@
+Один из примеров:
+1
+1
+3
+4
+0 1 6 -1
+-1 0 4 1
+-1 -1 0 -1
+-1 -1 1 0
+ 
+Вывод:
+1 - starting city
+2 - transit city
+4 - transit city
+3 - destination city

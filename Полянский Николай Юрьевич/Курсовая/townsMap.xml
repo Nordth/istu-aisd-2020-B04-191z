@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Towns>
+  <Town id="0">
+    <Name>Москва</Name>
+    <Point>150;125,37</Point>
+  </Town>
+  <Town id="1">
+    <Name>Ижевск</Name>
+    <Point>422;226,37</Point>
+  </Town>
+  <Town id="2">
+    <Name>Unknown</Name>
+    <Point>191;291,37</Point>
+  </Town>
+</Towns>

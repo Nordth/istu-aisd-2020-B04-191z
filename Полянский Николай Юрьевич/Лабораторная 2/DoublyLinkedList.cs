@@ -98,6 +98,30 @@ namespace Структуры_данных
             }
         }
 
+        private int GetIndex(string obj)
+        {
+            if (head != null)
+            {
+                // Установка текущей головной позиции
+                DoublyNode<T> current = head;
+
+                int index = 0;
+
+                while (current.Next != null && obj != current.Data.ToString())
+                {
+                    current = current.Next;
+                    index++;
+                }
+
+                return index;
+            }
+            else
+            {
+                Console.WriteLine("Невозможно найти элемент по названию. Список пуст.");
+                return 0;
+            }
+        }
+
         public T GetElement(int index)
         {
             DoublyNode<T> element = GetObject(index);
@@ -105,13 +129,17 @@ namespace Структуры_данных
             return element.Data;
         }
 
-        public int GetRange(int indexFindOne, int indexFindTwo)
+        public int GetRange(string FindOne, string FindTwo)
         {
             if (head != null)
             {
+                int indexFindOne = GetIndex(FindOne);
+
                 DoublyNode<T> current = GetObject(indexFindOne);
 
-                int index = indexFindOne;
+                int indexFindTwo = GetIndex(FindTwo);
+
+                int index = 0;
 
                 while (current.Next != null && index != indexFindTwo)
                 {
@@ -119,7 +147,7 @@ namespace Структуры_данных
                     index++;
                 }
 
-                return index - 1;
+                return index;
             }
             else
             {

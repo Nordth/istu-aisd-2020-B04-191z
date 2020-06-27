@@ -38,13 +38,13 @@ namespace Структуры_данных
 
             linkedList.Print();
 
-            Console.Write("\nПоиск расстояния от индекса: ");
-            int indexStart = Convert.ToInt32(Console.ReadLine());
+            Console.Write("\nПоиск расстояния от объекта (строка): ");
+            string start = Console.ReadLine();
             
-            Console.Write("До индекса: ");
-            int indexEnd = Convert.ToInt32(Console.ReadLine());
+            Console.Write("До объекта (строка): ");
+            string end = Console.ReadLine();
 
-            Console.WriteLine($"Расстояние от индекса {indexStart} до {indexEnd} равно {linkedList.GetRange(indexStart, indexEnd)}");
+            Console.WriteLine($"Расстояние от объекта {start} до {end} равно {linkedList.GetRange(start, end)}");
 
             long totalMemory = GC.GetTotalMemory(false);
 

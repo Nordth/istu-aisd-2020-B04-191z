@@ -1,0 +1,10 @@
+C:\Users\banok\OneDrive\FL\C#\FileIndex\FileIndex\bin\Debug\FileIndex.exe.config
+C:\Users\banok\OneDrive\FL\C#\FileIndex\FileIndex\bin\Debug\FileIndex.exe
+C:\Users\banok\OneDrive\FL\C#\FileIndex\FileIndex\bin\Debug\FileIndex.pdb
+C:\Users\banok\OneDrive\FL\C#\FileIndex\FileIndex\obj\Debug\FileIndex.csprojAssemblyReference.cache
+C:\Users\banok\OneDrive\FL\C#\FileIndex\FileIndex\obj\Debug\FileIndex.FormMain.resources
+C:\Users\banok\OneDrive\FL\C#\FileIndex\FileIndex\obj\Debug\FileIndex.Properties.Resources.resources
+C:\Users\banok\OneDrive\FL\C#\FileIndex\FileIndex\obj\Debug\FileIndex.csproj.GenerateResource.cache
+C:\Users\banok\OneDrive\FL\C#\FileIndex\FileIndex\obj\Debug\FileIndex.csproj.CoreCompileInputs.cache
+C:\Users\banok\OneDrive\FL\C#\FileIndex\FileIndex\obj\Debug\FileIndex.exe
+C:\Users\banok\OneDrive\FL\C#\FileIndex\FileIndex\obj\Debug\FileIndex.pdb

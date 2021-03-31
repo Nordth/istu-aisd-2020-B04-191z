@@ -1,7 +1,0 @@
-C:\Users\banok\OneDrive\FL\BTree\HashTable\bin\Debug\HashTable.exe.config
-C:\Users\banok\OneDrive\FL\BTree\HashTable\bin\Debug\HashTable.exe
-C:\Users\banok\OneDrive\FL\BTree\HashTable\bin\Debug\HashTable.pdb
-C:\Users\banok\OneDrive\FL\BTree\HashTable\obj\Debug\HashTable.csprojAssemblyReference.cache
-C:\Users\banok\OneDrive\FL\BTree\HashTable\obj\Debug\HashTable.csproj.CoreCompileInputs.cache
-C:\Users\banok\OneDrive\FL\BTree\HashTable\obj\Debug\HashTable.exe
-C:\Users\banok\OneDrive\FL\BTree\HashTable\obj\Debug\HashTable.pdb

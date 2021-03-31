@@ -1,7 +1,0 @@
-C:\Users\banok\OneDrive\FL\BTree\BTree\obj\Debug\BTree.csprojAssemblyReference.cache
-C:\Users\banok\OneDrive\FL\BTree\BTree\obj\Debug\BTree.csproj.CoreCompileInputs.cache
-C:\Users\banok\OneDrive\FL\BTree\BTree\bin\Debug\BTree.exe.config
-C:\Users\banok\OneDrive\FL\BTree\BTree\bin\Debug\BTree.exe
-C:\Users\banok\OneDrive\FL\BTree\BTree\bin\Debug\BTree.pdb
-C:\Users\banok\OneDrive\FL\BTree\BTree\obj\Debug\BTree.exe
-C:\Users\banok\OneDrive\FL\BTree\BTree\obj\Debug\BTree.pdb
